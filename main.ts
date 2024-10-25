@@ -7,61 +7,40 @@ router
     ** This endpoint will be used to check if the service is running
     */
     .get("/service-health", (context) => {
-        context.response.body = JSON.parse('{"status": "HEALTHY"}');
+        context.response.body = { "status": "HEALTHY" };
     })
     /*
     ** This endpoint will be used to check if the product is available with certain quantity
     ** @param id: Product ID
-    ** @param plan-id: Plan ID
+    ** @param planId: Plan ID
     ** @param qty: Quantity
     */
-    .get("/product/:id/:plan-id/:qty", (context) => {
+    .get("/product/:id/:planId/:qty", (context) => {
         /*
          * Your logic here to check if the product is available with the given quantity
          */
 
         // If product is available with the given quantity:
-        context.response.body = JSON.parse('{"status": "OK"}');
+        context.response.body = { "status": "OK" };
 
         // If product is not available with the given quantity:
-        // context.response.body = JSON.parse('{"status": "NOT_OK"}');
-        // context.response.status = 404;
-    })
-
-    /*
-    ** This endpoint will be used to get a license key for the product
-    ** @param id: Product ID
-    ** @param plan-id: Plan ID
-    ** @param qty: Quantity
-    */
-    .get("/product/:id/:plan-id/:qty", (context) => {
-        /*
-         * Your logic here to check if the product is available with the given quantity
-         */
-
-        // If product is available with the given quantity:
-        context.response.body = JSON.parse('{"status": "OK"}');
-
-        // If product is not available with the given quantity:
-        // context.response.body = JSON.parse('{"status": "NOT_OK"}');
+        // context.response.body = { "status": "NOT_OK" };
         // context.response.status = 404;
     })
     /*
     * Return a license key for the product
     * */
-    .get("/product/:id/:plan-id/:qty/getLicense", (context) => {
+    .get("/getLicense/:id/:planId/:qty", (context) => {
         // return 1 license key
-        context.response.body = JSON.parse('{"license-key": "1234567890"}');
+        context.response.body = { "license-key": "1234567890" };
 
         // return multiple license keys
-        // context.response.body = JSON.parse('{"license-keys": ["1234567890", "0987654321", "5678901234"]}');
-    })
-
-;
+        // context.response.body = { "license-keys": ["1234567890", "0987654321", "5678901234"] };
+    });
 
 const app = new Application();
-app.use(logger.logger)
-app.use(logger.responseTime)
+app.use(logger.logger);
+app.use(logger.responseTime);
 app.use(router.routes());
 app.use(router.allowedMethods());
 
