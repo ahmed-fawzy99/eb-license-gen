@@ -46,7 +46,16 @@ router
         // context.response.body = JSON.parse('{"status": "NOT_OK"}');
         // context.response.status = 404;
     })
-    .get
+    /*
+    * Return a license key for the product
+    * */
+    .get("/product/:id/:plan-id/:qty/getLicense", (context) => {
+        // return 1 license key
+        context.response.body = JSON.parse('{"license-key": "1234567890"}');
+
+        // return multiple license keys
+        // context.response.body = JSON.parse('{"license-keys": ["1234567890", "0987654321", "5678901234"]}');
+    })
 
 ;
 
